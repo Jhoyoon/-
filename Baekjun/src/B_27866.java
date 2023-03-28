@@ -6,6 +6,6 @@ public class B_27866 {
         String str = sc.nextLine();
         int N = sc.nextInt();
 
-        System.out.println(str.charAt(N-1));
+       System.out.println(str.charAt(N-1));
     }
 }
