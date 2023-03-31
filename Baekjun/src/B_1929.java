@@ -24,9 +24,3 @@ import java.io.*;
 
 //     }
 // }
-public class B_1929 {
-    public static void main(String[] args) throws IOException{
-        
-    }
-}
-
