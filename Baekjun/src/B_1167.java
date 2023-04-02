@@ -120,6 +120,7 @@ public class B_1167{
             for(Node i : arr[now_node]){
                 if(!visited[i.node]){
                     visited[i.node] = true;
+                    //거리 업데이트
                     distance[i.node] = distance[now_node]+i.dis;
                     q.add(i.node);
                 }

@@ -77,6 +77,8 @@ public class B_1517{
         for(int i=0;i<N;i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        // 입력값 입력
+        
         mergeSort(0,N-1);
         System.out.println(count);
     }
