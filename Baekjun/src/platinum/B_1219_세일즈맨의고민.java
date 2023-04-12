@@ -1,6 +1,4 @@
-package platunum;
-
-
+package platinum;
 import java.util.*;
 import java.io.*;
 public class B_1219_세일즈맨의고민{
@@ -16,30 +14,30 @@ public class B_1219_세일즈맨의고민{
             st = new StringTokenizer(br.readLine()," ");
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            edges[i] = new Edge1219(s, e, m);
+            int price = Integer.parseInt(st.nextToken());
+            edges[i] = new Edge1219(s, e, price);
         }
-        long[] money = new long[N];
         st = new StringTokenizer(br.readLine()," ");
+        int[] money = new int[N];
         for(int i=0;i<N;i++){
-            money[i] = Long.parseLong(st.nextToken());
+            money[i] = Integer.parseInt(st.nextToken());
         }
         long[] sol = new long[N];
         Arrays.fill(sol,Long.MIN_VALUE);
         sol[start] = money[start];
+
         for(int i=0;i<=N+100;i++){
             for(int j=0;j<M;j++){
-                // 엣지 리스트를 싸그리 돌면서 조건에 해당하면 엣지 리스트를 업데이트 해준다.
                 Edge1219 now = edges[j];
                 if(sol[now.start] == Long.MIN_VALUE) continue;
                 else if(sol[now.start] == Long.MAX_VALUE) sol[now.end] = Long.MAX_VALUE;
                 else if(sol[now.end] < sol[now.start]+money[now.end]-now.price){
                     sol[now.end] = sol[now.start]+money[now.end]-now.price;
-                    if(i>= N-1) sol[now.end] = Long.MAX_VALUE;
-                }
+                    if(i>=N-1) sol[now.end] = Long.MAX_VALUE;
+                } 
             }
         }
-        if(sol[end]==Long.MIN_VALUE) System.out.println("gg");
+        if(sol[end] == Long.MIN_VALUE) System.out.println("gg");
         else if(sol[end] == Long.MAX_VALUE) System.out.println("Gee");
         else System.out.println(sol[end]);
     }

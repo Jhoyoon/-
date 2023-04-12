@@ -1,4 +1,4 @@
-package platunum;
+package platinum;
 
 import java.util.*;
 import java.io.*;
