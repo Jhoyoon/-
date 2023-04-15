@@ -1,30 +1,30 @@
 package silver;
-
-// import java.io.*;
 // import java.util.*;
-
+// import java.io.*;
 // public class B_14425_문자열찾기{
-//     public static void main(String[] args){
-//         Scanner sc = new Scanner(System.in);
-//         int N  = sc.nextInt();
-//         int M = sc.nextInt();
+//     public static void main(String[] args) throws IOException{
+//         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//         StringTokenizer st = new StringTokenizer(br.readLine()," ");
+//         int N  = Integer.parseInt(st.nextToken());
+//         int M = Integer.parseInt(st.nextToken());
 //         Node14425 root = new Node14425();
+
 //         while(N>0){
-//             String text = sc.next();
+//             st = new StringTokenizer(br.readLine());
+//             String text = st.nextToken();
 //             Node14425 now = root;
 //             for(int i=0;i<text.length();i++){
 //                 char c = text.charAt(i);
-//                 if(now.next[c-'a']==null){
-//                     now.next[c-'a'] = new Node14425();
-//                 }
+//                 if(now.next[c-'a']==null) now.next[c-'a'] = new Node14425();
 //                 now = now.next[c-'a'];
-//                 if(i==text.length()-1) now.isEnd =true;
+//                 if(i==text.length()-1) now.isEnd = true;
 //             }
 //             N--;
 //         }
 //         int count = 0;
 //         while(M>0){
-//             String text = sc.next();
+//             st = new StringTokenizer(br.readLine()," ");
+//             String text = st.nextToken();
 //             Node14425 now = root;
 //             for(int i=0;i<text.length();i++){
 //                 char c = text.charAt(i);
@@ -43,22 +43,18 @@ package silver;
 //     boolean isEnd;
 // }
 
+import java.io.*;
 import java.util.*;
 
-import org.w3c.dom.Node;
-
-import java.io.*;
 public class B_14425_문자열찾기{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        int N  = Integer.parseInt(st.nextToken());
+        StringTokenizer st =  new StringTokenizer(br.readLine()," ");
+        int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         Node14425 root = new Node14425();
-
         while(N>0){
-            st = new StringTokenizer(br.readLine());
-            String text = st.nextToken();
+            String text = br.readLine();
             Node14425 now = root;
             for(int i=0;i<text.length();i++){
                 char c = text.charAt(i);
@@ -70,8 +66,7 @@ public class B_14425_문자열찾기{
         }
         int count = 0;
         while(M>0){
-            st = new StringTokenizer(br.readLine()," ");
-            String text = st.nextToken();
+            String text = br.readLine();
             Node14425 now = root;
             for(int i=0;i<text.length();i++){
                 char c = text.charAt(i);
