@@ -1,48 +1,97 @@
 package gold;
+// import java.io.*;
+// import java.util.*;
+// public class B_2342_DDR{
+//     public static void main(String[] args) throws IOException{
+//         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//         int[][][] dp = new int[100001][5][5];
+//         int[][] mp = {  {0,2,2,2,2},
+//                         {2,1,3,4,3},
+//                         {2,3,1,3,4},
+//                         {2,4,3,1,3},
+//                         {2,3,4,3,1}};
+//         int n = 0;
+//         int s = 1;
+//         for(int i=0;i<5;i++){
+//             for(int j=0;j<5;j++){
+//                 for(int k=0;k<100001;k++){
+//                     dp[k][i][j]=100001*4;
+//                 }
+//             }
+//         }
+//         dp[0][0][0]=0;
+//         StringTokenizer st = new StringTokenizer(br.readLine()," ");
+//         while(true){
+//             n = Integer.parseInt(st.nextToken());
+//             if(n==0) break;
+//             for(int i=0;i<5;i++){
+//                 if(n==i) continue;
+//                 for(int j=0;j<5;j++){
+//                     dp[s][i][n] = Math.min(dp[s-1][i][j]+mp[j][n],dp[s][i][n]);
+//                 }
+//             }
+//             for(int j=0;j<5;j++){
+//                 if(n==j) continue;
+//                 for(int i=0;i<5;i++){
+//                     dp[s][n][j] = Math.min(dp[s-1][i][j]+mp[i][n],dp[s][n][j]);
+//                 }
+//             }
+//             s++;
+//         }
+//         s--;
+//         int min =  Integer.MAX_VALUE;
+//         for(int i=0;i<5;i++){
+//             for(int j=0;j<5;j++){
+//                 min = Math.min(min,dp[s][i][j]);
+//             }
+//         }
+//         System.out.println(min);
+//     }
+// }
 import java.io.*;
 import java.util.*;
 public class B_2342_DDR{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int[][][] dp = new int[100001][5][5];
-        int[][] mp = {  {0,2,2,2,2},
+        int[][][] D = new int[100001][5][5];
+        int[][] mp = {{0,2,2,2,2},
                         {2,1,3,4,3},
                         {2,3,1,3,4},
                         {2,4,3,1,3},
                         {2,3,4,3,1}};
-        int n = 0;
-        int s = 1;
-        for(int i=0;i<5;i++){
-            for(int j=0;j<5;j++){
+        for(int i=0;i<=4;i++){
+            for(int j=0;j<=4;j++){
                 for(int k=0;k<100001;k++){
-                    dp[k][i][j]=100001*4;
+                    D[k][i][j] = 100001*4;
                 }
             }
         }
-        dp[0][0][0]=0;
+        int n=0;
+        int s = 1;
+        D[0][0][0] = 0;
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
         while(true){
-            n = Integer.parseInt(st.nextToken());
-            if(n==0) break;
-            for(int i=0;i<5;i++){
+             n = Integer.parseInt(st.nextToken());
+             if(n==0) break;
+             for(int i=0;i<5;i++){
                 if(n==i) continue;
                 for(int j=0;j<5;j++){
-                    dp[s][i][n] = Math.min(dp[s-1][i][j]+mp[j][n],dp[s][i][n]);
+                    D[s][i][n] = Math.min(D[s][i][n],D[s-1][i][j]+mp[j][n]);
                 }
-            }
-            for(int j=0;j<5;j++){
+             }
+             for(int j=0;j<5;j++){
                 if(n==j) continue;
                 for(int i=0;i<5;i++){
-                    dp[s][n][j] = Math.min(dp[s-1][i][j]+mp[i][n],dp[s][n][j]);
+                    D[s][n][j] = Math.min(D[s][n][j],D[s-1][i][j]+mp[i][n]);
                 }
-            }
-            s++;
+             }
+             s++;
         }
         s--;
-        int min =  Integer.MAX_VALUE;
+        int min = Integer.MAX_VALUE;
         for(int i=0;i<5;i++){
             for(int j=0;j<5;j++){
-                min = Math.min(min,dp[s][i][j]);
+                min = Math.min(min,D[s][i][j]);
             }
         }
         System.out.println(min);
