@@ -2,29 +2,28 @@ package gold;
 import java.io.*;
 import java.util.*;
 public class B_17298_오큰수{
-    public static void main(String[] args) throws IOException{
-        BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args)throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int[] input = new int[N+1];
-        int[] ans = new int[N+1];
+        int[] input = new int[N];
+        int[] output = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        for(int i=1;i<=N;i++){
+        for(int i=0;i<N;i++){
             input[i] = Integer.parseInt(st.nextToken());
         }
-        Stack<Integer> myStack = new Stack<>();
-        myStack.add(1);
-        for(int i=2;i<=N;i++){
-            while(!myStack.isEmpty() && input[myStack.peek()]<input[i]){
-                ans[myStack.pop()] = input[i];
+        Stack<Integer> mySt = new Stack<>();
+        for(int i=0;i<N;i++){
+            while(!mySt.isEmpty() && input[mySt.peek()]<input[i]){
+                output[mySt.pop()] = input[i];
             }
-            myStack.add(i);
+            mySt.push(i);
         }
-        while(!myStack.isEmpty()){
-            ans[myStack.pop()] = -1;
+        while(!mySt.isEmpty()){
+            output[mySt.pop()] = -1;
         }
         StringBuffer sb = new StringBuffer();
-        for(int i=1;i<=N;i++){
-            sb.append(ans[i]+" ");
+        for(int i : output){
+            sb.append(i+" ");
         }
         System.out.println(sb.toString());
     }
