@@ -56,41 +56,35 @@ import java.util.*;
 //         System.out.println(sb.toString());
 //     }
 // }
-// ** 삽입 정렬 ** 
-// public class B_1427_소트인사이드{
-//     public static void main(String[] args)throws IOException{
-//         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//         char[] ch = br.readLine().toCharArray();
-//         int N = ch.length;
-//         int[] arr = new int[N];
-//         for(int i=0;i<N;i++){
-//             arr[i] = ch[i]-'0';
-//         }
-//         // 삽입정렬
-//         for(int i=1;i<N;i++){
-//             int insert_index = i;
-//             int insert_value = arr[i];
-//             for(int j=i-1;j>=0;j--){
-//                 if(arr[i] < arr[j]){
-//                     insert_index = j+1;
-//                     break;
-//                 }
-//                 if(j==0){
-//                     insert_index = 0;
-//                 }
-//             }
-//             for(int j=i;j>insert_index;j--){
-//                 arr[j] = arr[j-1];
-//             }
-//             arr[insert_index] = insert_value;
-//         }
-//         StringBuffer sb = new StringBuffer();
-//         for(int i: arr){
-//             sb.append(i);
-//         }
-//         System.out.println(sb.toString());
-//     }
-// }
+// ** 삽입 정렬 **
+// 삽입정렬은 미는게 아니고 스왑하는거임.헷갈리지 말자
+public class B_1427_소트인사이드{
+    public static void main(String[] args) throws IOException{
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       char[] c = br.readLine().toCharArray();
+       int N = c.length;
+       int[] arr = new int[N];
+       for(int i=N-1;i>=0;i--){
+        arr[i] = c[i] - '0';
+       }
+       for(int i=0;i<N;i++){
+        int max = i;
+        for(int j=i+1;j<N;j++){
+            if(arr[max] < arr[j]) max = j;
+        }
+        if(arr[max] > arr[i]){
+            int tmp = arr[max];
+            arr[max] = arr[i];
+            arr[i] = tmp;
+        }
+       }
+       StringBuffer sb = new StringBuffer();
+       for(int i: arr){
+        sb.append(i);
+       }
+       System.out.println(sb.toString());
+    }
+}
 // ** 퀵정렬 **
 // public class B_1427_소트인사이드{
 //     static int[] arr;
@@ -140,55 +134,55 @@ import java.util.*;
 //     }
 // }
 // ** 병합정렬 **
-public class B_1427_소트인사이드{
-    static int[] arr,tmp;
-    public static void main(String[] args) throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        char[] c = br.readLine().toCharArray();
-        arr = new int[c.length];
-        tmp = new int[c.length];
-        for(int i=c.length-1;i>=0;i--){
-            arr[i] = c[i]-'0';
-        }
-        mergeSort(0,arr.length-1);
-        StringBuffer sb = new StringBuffer();
-        for(int i : arr){
-            sb.append(i);
-        }
-        System.out.println(sb.toString());
-    }
-    private static void mergeSort(int s,int e){
-        if(e-s < 1) return;
-        int m = s+(e-s)/2;
-        mergeSort(s,m);
-        mergeSort(m+1,e);
-        for(int i=s;i<=e;i++){
-            tmp[i] = arr[i];
-        }
+// public class B_1427_소트인사이드{
+//     static int[] arr,tmp;
+//     public static void main(String[] args) throws IOException{
+//         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//         char[] c = br.readLine().toCharArray();
+//         arr = new int[c.length];
+//         tmp = new int[c.length];
+//         for(int i=c.length-1;i>=0;i--){
+//             arr[i] = c[i]-'0';
+//         }
+//         mergeSort(0,arr.length-1);
+//         StringBuffer sb = new StringBuffer();
+//         for(int i : arr){
+//             sb.append(i);
+//         }
+//         System.out.println(sb.toString());
+//     }
+//     private static void mergeSort(int s,int e){
+//         if(e-s < 1) return;
+//         int m = s+(e-s)/2;
+//         mergeSort(s,m);
+//         mergeSort(m+1,e);
+//         for(int i=s;i<=e;i++){
+//             tmp[i] = arr[i];
+//         }
 
-        int k = s;
-        int index1 = s;
-        int index2 = m+1;
-        while(index1 <= m && index2 <= e){
-            if(tmp[index1] < tmp[index2]){
-                arr[k] = tmp[index2];
-                k++;
-                index2++;
-            }else{
-                arr[k] = tmp[index1];
-                k++;
-                index1++;
-            }
-        }
-        while(index1 <= m){
-            arr[k] = tmp[index1];
-            k++;
-            index1++;
-        }
-        while(index2 <= e){
-            arr[k] = tmp[index2];
-            k++;
-            index2++;
-        }
-    }
-}
+//         int k = s;
+//         int index1 = s;
+//         int index2 = m+1;
+//         while(index1 <= m && index2 <= e){
+//             if(tmp[index1] < tmp[index2]){
+//                 arr[k] = tmp[index2];
+//                 k++;
+//                 index2++;
+//             }else{
+//                 arr[k] = tmp[index1];
+//                 k++;
+//                 index1++;
+//             }
+//         }
+//         while(index1 <= m){
+//             arr[k] = tmp[index1];
+//             k++;
+//             index1++;
+//         }
+//         while(index2 <= e){
+//             arr[k] = tmp[index2];
+//             k++;
+//             index2++;
+//         }
+//     }
+// }
