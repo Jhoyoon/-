@@ -1,56 +1,52 @@
 package gold;
 import java.io.*;
 import java.util.*;
-public class B_1916_최소비용구하기 {
+public class B_1916_최소비용구하기{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int M = Integer.parseInt(br.readLine());
-        StringTokenizer st;
-        ArrayList<Node1916>[] arr=  new ArrayList[N+1];
-        for(int i=1;i<=N;i++){
+        int node = Integer.parseInt(br.readLine());
+        int edge = Integer.parseInt(br.readLine());
+        ArrayList<Node>[] arr = new ArrayList[node+1];
+        int[] distance = new int[node+1];
+        boolean[] visited = new boolean[node+1];
+        for(int i=1;i<=node;i++){
             arr[i] = new ArrayList<>();
+            distance[i] = Integer.MAX_VALUE;
         }
-        for(int i=0;i<M;i++){
+        StringTokenizer st;
+        for(int i=0;i<edge;i++){
             st = new StringTokenizer(br.readLine()," ");
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-            arr[s].add(new Node1916(e,v));
+            int value = Integer.parseInt(st.nextToken());
+            arr[s].add(new Node(e,value));
         }
         st = new StringTokenizer(br.readLine()," ");
         int start = Integer.parseInt(st.nextToken());
         int end = Integer.parseInt(st.nextToken());
-        int[] sol = new int[N+1];
-        for(int i=1;i<=N;i++){
-            sol[i] = Integer.MAX_VALUE;
-        }
-        sol[start] = 0;
-        boolean[] visited = new boolean[N+1];
-        PriorityQueue<Node1916> q=  new PriorityQueue<>();
-        q.add(new Node1916(start, 0));
+        distance[start] = 0;
+        PriorityQueue<Node> q = new PriorityQueue<>((o1,o2)->{
+            return o1.value - o2.value;
+        });
+        q.add(new Node(start,0));
         while(!q.isEmpty()){
-            Node1916 now = q.poll();
-            if(visited[now.node]) continue;
-            visited[now.node] = true;
-            for(Node1916 i : arr[now.node]){
-                if(sol[i.node]>sol[now.node]+i.value){
-                    sol[i.node] = sol[now.node]+i.value;
-                    q.add(new Node1916(i.node, sol[i.node]));
-                }
+            Node now = q.poll();
+            if(!visited[now.node]){
+                visited[now.node] = true;
+                for(Node i : arr[now.node]){
+                        distance[i.node] = Math.min(distance[i.node],distance[now.node]+i.value);
+                        q.add(new Node(i.node,distance[i.node]));
+                } 
             }
         }
-        System.out.print(sol[end]);
+        System.out.println(distance[end]);
     }
-}
-class Node1916 implements Comparable<Node1916>{
-    int node;
-    int value;
-    Node1916(int node,int value){
-        this.node = node;
-        this.value = value;
-    }
-    public int compareTo(Node1916 n){
-        return this.value - n.value;
+    static class Node{
+        int node;
+        int value;
+        Node(int node,int value){
+            this.node = node;
+            this.value = value;
+        }
     }
 }
