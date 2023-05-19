@@ -1,48 +1,49 @@
 package silver;
-import java.util.*;
 import java.io.*;
-
+import java.util.*;
 public class B_1389_케빈베이컨{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        long[][] distance = new long[N+1][N+1];
-        for(int i=1;i<=N;i++){
-            for(int j=1;j<=N;j++){
-                if(i==j) distance[i][j] = 0;
-                else distance[i][j] = Integer.MAX_VALUE;
+        int node = Integer.parseInt(st.nextToken());
+        int edge = Integer.parseInt(st.nextToken());
+        long[][] arr=  new long[node+1][node+1];
+        for(int i=1;i<=node;i++){
+            for(int j=1;j<=node;j++){
+                arr[i][j] = Integer.MAX_VALUE;
+                if(i == j) arr[i][j] = 0;
             }
         }
-        for(int i=0;i<M;i++){
+        for(int i=1;i<=edge;i++){
             st = new StringTokenizer(br.readLine()," ");
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            distance[s][e] = 1;
-            distance[e][s] =1;
+            arr[s][e] = 1;
+            arr[e][s]=1;
         }
-        for(int k=1;k<=N;k++){
-            for(int i=1;i<=N;i++){
-                for(int j=1;j<=N;j++){
-                    distance[i][j] = Math.min(distance[i][j],distance[i][k]+distance[k][j]);
+        // 플로이드 워셜 알고리즘 실행
+        for(int k=1;k<=node;k++){
+            for(int i=1;i<=node;i++){
+                for(int j=1;j<=node;j++){
+                    arr[i][j] = Math.min(arr[i][j],arr[i][k]+arr[k][j]);
                 }
             }
         }
-
-        long min = Integer.MAX_VALUE;
-        int answer = 0;
-        for(int i=1;i<=N;i++){
-            long sum = 0;
-            for(int j=1;j<=N;j++){
-                sum = sum+distance[i][j];
-            }
-            // 같은 수를 가졌을 경우 answer를 업데이트 하지 않는다.그렇기에 문제의 조건을 만족함.
-            if(min>sum) {
-            min = sum;
-            answer = i;
+        long[] result = new long[node+1];
+        for(int i=1;i<=node;i++){
+            for(int j=1;j<=node;j++){
+                result[i] = result[i] + arr[i][j];
             }
         }
-        System.out.print(answer);
+        long min = Integer.MAX_VALUE;
+        for(int i=1;i<=node;i++){
+            if(min > result[i]) min = result[i];
+        }
+        for(int i=1;i<=node;i++){
+            if(result[i] == min){
+                System.out.println(i);
+                break;
+            }
+        }
     }
 }

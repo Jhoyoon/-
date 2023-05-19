@@ -1,79 +1,38 @@
 package gold;
-
-// import java.io.*;
-// import java.util.*;
-
-// public class B_11404_플로이드{
-//     public static void main(String[] args) throws IOException{
-//         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//         int N = Integer.parseInt(br.readLine());
-//         int M = Integer.parseInt(br.readLine());
-//         long[][] price = new long[N+1][N+1];
-//         for(int i=1;i<=N;i++){
-//             for(int j=1;j<=N;j++){
-//                 if(i==j) price[i][j] =0;
-//                 else price[i][j] = Integer.MAX_VALUE;
-//             }
-//         }
-//         for(int i=0;i<M;i++){
-//             StringTokenizer st = new StringTokenizer(br.readLine()," ");
-//             int s = Integer.parseInt(st.nextToken());
-//             int e = Integer.parseInt(st.nextToken());
-//             int p = Integer.parseInt(st.nextToken());
-//             if(price[s][e]>p) price[s][e] = p;
-//         }
-//         for(int k=1;k<=N;k++){
-//             for(int i=1;i<=N;i++){
-//                 for(int j=1;j<=N;j++){
-//                     price[i][j] = Math.min(price[i][j],price[i][k]+price[k][j]);
-//                 }
-//             }
-//         }
-//         StringBuffer sb  =new StringBuffer();
-//         for(int i=1;i<=N;i++){
-//             for(int j=1;j<=N;j++){
-//                 if(price[i][j] == Integer.MAX_VALUE) sb.append(0+" ");
-//                 else sb.append(price[i][j]+" ");
-//             }
-//             sb.append("\n");
-//         }
-//         System.out.print(sb.toString());
-//     }
-// }
 import java.io.*;
 import java.util.*;
-
 public class B_11404_플로이드{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int M = Integer.parseInt(br.readLine());
-        long[][] price = new long[N+1][N+1];
-        for(int i=1;i<=N;i++){
-            for(int j=1;j<=N;j++){
-                if(i==j) price[i][j] = 0;
-                else price[i][j] = Integer.MAX_VALUE;
+        int node = Integer.parseInt(br.readLine());
+        int edge = Integer.parseInt(br.readLine());
+        long[][] arr = new long[node+1][node+1];
+        for(int i=1;i<=node;i++){
+            for(int j=1;j<=node;j++){
+                arr[i][j] = Integer.MAX_VALUE;
+                if(i == j) arr[i][j] = 0;
             }
         }
-        for(int i=0;i<M;i++){
+        for(int i=1;i<=edge;i++){
             StringTokenizer st = new StringTokenizer(br.readLine()," ");
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            int p = Integer.parseInt(st.nextToken());
-            if(price[s][e]>p) price[s][e] = p;
+            int value = Integer.parseInt(st.nextToken());
+            arr[s][e] = Math.min(arr[s][e],value);
         }
-        for(int k=1;k<=N;k++){
-            for(int i=1;i<=N;i++){
-                for(int j=1;j<=N;j++){
-                    price[i][j] = Math.min(price[i][j],price[i][k]+price[k][j]);
+        // 플로이드 워셜 알고리즘 실행
+        for(int k=1;k<=node;k++){
+            for(int i=1;i<=node;i++){
+                for(int j=1;j<=node;j++){
+                    arr[i][j] = Math.min(arr[i][j],arr[i][k]+arr[k][j]);
                 }
             }
         }
         StringBuffer sb = new StringBuffer();
-        for(int i=1;i<=N;i++){
-            for(int j=1;j<=N;j++){
-                if(price[i][j] == Integer.MAX_VALUE) sb.append("0 ");
-                else sb.append(price[i][j]+" "); 
+        for(int i=1;i<=node;i++){
+            for(int j=1;j<=node;j++){
+                if(arr[i][j] == Integer.MAX_VALUE) sb.append(0+" ");
+                else sb.append(arr[i][j]+" ");
             }
             sb.append("\n");
         }
