@@ -3,19 +3,15 @@ import java.io.*;
 import java.util.*;
 public class B_1976_여행가자{
     static int[] parent;
-    static int[] route;
-    static int[][] arr;
     public static void main(String[] args) throws IOException{
-        // 경로에 속한 도시들이 전부 같은 집합에 속해있는지만 확인하면 되는 문제임
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int node = Integer.parseInt(br.readLine());
-        int route_node = Integer.parseInt(br.readLine());
+        int num = Integer.parseInt(br.readLine());
+        int[][] arr = new int[node+1][node+1];
         parent = new int[node+1];
         for(int i=1;i<=node;i++){
             parent[i] = i;
         }
-        route = new int[route_node];
-        arr = new int[node+1][node+1];
         StringTokenizer st;
         for(int i=1;i<=node;i++){
             st = new StringTokenizer(br.readLine()," ");
@@ -25,18 +21,16 @@ public class B_1976_여행가자{
             }
         }
         st = new StringTokenizer(br.readLine()," ");
-        for(int i=0;i<route_node;i++){
+        int[] route = new int[num+1];
+        for(int i=1;i<=num;i++){
             route[i] = Integer.parseInt(st.nextToken());
         }
-        int index = find(route[0]);
-        boolean result = true;
-        for(int i=1;i<route_node;i++){
-            if(index != find(route[i])){
-                result = false;
-                break;
-            }
+        int result = find(route[1]);
+        boolean check = true;
+        for(int i=2;i<=num;i++){
+            if(result != find(route[i])) check = false;
         }
-        if(result) System.out.println("YES");
+        if(check) System.out.println("YES");
         else System.out.println("NO");
     }
     private static void union(int a,int b){
